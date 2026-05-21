@@ -1,0 +1,344 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coastal Guardian - Beach Rover Control</title>
+<style>
+
+:root {
+  --bg: #090e18;
+  --card: #111827;
+  --soft: #1f2937;
+  --blue: #2563eb;
+  --green: #22c55e;
+  --green-soft: rgba(34, 197, 94, 0.1);
+  --red: #dc2626;
+  --text: #e5e7eb;
+  --text-dim: #9ca3af;
+  --border: #1f2a44;
+  --border-radius: 12px;
+  --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+
+body { background: var(--bg); color: var(--text); min-height: 100vh; line-height: 1.5; font-size: 14px; overflow-x: hidden; }
+
+
+.topbar { display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; background: rgba(11, 18, 32, 0.85); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+.logo-container { display: flex; align-items: center; gap: 10px; }
+.logo-icon { width: 32px; height: 32px; background: #3b82f6; border-radius: 6px; display: flex; align-items: center; justify-content: center; }
+.logo-icon svg { width: 20px; height: 20px; }
+.brand-name { font-weight: 600; font-size: 16px; }
+.brand-sub { font-size: 11px; color: var(--text-dim); }
+
+.nav-links { display: flex; align-items: center; gap: 8px; }
+.nav-link { color: var(--text-dim); cursor: pointer; padding: 6px 12px; border-radius: 8px; transition: var(--transition); }
+.nav-link:hover { color: #fff; background: var(--soft); }
+.nav-link.active { background: var(--blue); color: #fff; }
+
+.status-indicator { display: flex; align-items: center; gap: 12px; color: var(--text-dim); font-size: 12px; }
+.status-indicator div { display: flex; align-items: center; gap: 4px; }
+.status-indicator .connected { color: var(--green); }
+.status-indicator .connected-dot { width: 8px; height: 8px; background: var(--green); border-radius: 50%; display: inline-block; }
+
+
+.main-container { padding: 20px; max-width: 1600px; margin: 0 auto; }
+.control-header { margin-bottom: 20px; }
+.control-title { font-size: 18px; font-weight: 600; margin-bottom: 2px; }
+.control-sub { font-size: 12px; color: var(--text-dim); }
+
+.dashboard-grid { display: grid; grid-template-columns: 240px 1fr 320px; gap: 20px; }
+
+
+.controls-panel { background: var(--card); padding: 15px; border-radius: var(--border-radius); border: 1px solid var(--border); height: fit-content; }
+.section-title { font-size: 14px; font-weight: 600; margin-bottom: 15px; color: #fff; }
+.btn-control { width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 8px; border: none; background: var(--soft); color: #fff; font-size: 12px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: var(--transition); }
+.btn-control.start { background: var(--blue); }
+.btn-control.emergency { background: #5a1919; border: 1px solid var(--red); }
+.btn-control.new-task { background: #16a34a; margin-top: 10px; font-size: 13px; }
+
+.btn-control:not(.start):hover { background: #2f3e54; }
+.btn-control.start:hover { filter: brightness(1.1); }
+.btn-control.emergency:hover { background: #7f1d1d; }
+
+.btn-control .icon { width: 14px; height: 14px; display: flex; align-items: center; justify-content: center; }
+
+
+.card-wide { background: var(--card); padding: 20px; border-radius: var(--border-radius); border: 1px solid var(--border); margin-bottom: 20px; }
+.card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; }
+.status-badge { background: var(--green-soft); color: var(--green); padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: bold; border: 1px solid rgba(34, 197, 94, 0.2); }
+
+.progress-section { margin-top: 25px; margin-bottom: 20px; }
+.bar-wrap { height: 10px; background: var(--border); border-radius: 10px; margin-top: 10px; overflow: hidden; position: relative; }
+.bar-fill { height: 100%; border-radius: 10px; background: linear-gradient(90deg, var(--blue), var(--green)); width: 45%; position: relative; animation: progressLoad 1s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+.bar-glow { position: absolute; right: 0; width: 30px; height: 100%; background: linear-gradient(90deg, rgba(34, 197, 94, 0), rgba(34, 197, 94, 0.4)); filter: blur(3px); }
+
+@keyframes progressLoad { from { width: 0%; } to { width: 45%; } }
+
+.meta-row { display: flex; justify-content: space-between; padding-top: 15px; border-top: 1px solid var(--border); font-size: 12px; color: var(--text-dim); }
+.meta-row small { font-size: 10px; text-transform: uppercase; color: var(--text-dim); margin-bottom: 2px; display: block; }
+.meta-item b { color: #fff; font-weight: 600; }
+
+.stats-subgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+.stat-box { background: var(--card); padding: 15px; border-radius: var(--border-radius); border: 1px solid var(--border); }
+.stat-box small { font-size: 11px; color: var(--text-dim); }
+.stat-box h3 { font-size: 18px; margin-top: 2px; color: #fff; }
+.stat-box h3 small { font-size: 11px; margin-left: 2px; color: var(--text-dim); }
+.trend-green { color: var(--green); font-size: 10px; font-weight: 600; display: flex; align-items: center; gap: 3px; margin-top: 4px; }
+
+
+.side-panel { display: flex; flex-direction: column; gap: 20px; }
+.box-side { background: var(--card); padding: 15px; border-radius: var(--border-radius); border: 1px solid var(--border); }
+.alert-item { padding: 10px; border-radius: 8px; margin-top: 10px; font-size: 12px; border-left: 4px solid transparent; display: flex; flex-direction: column; }
+.alert-item.warn { background: rgba(251, 191, 36, 0.05); color: #fbbf24; border-left-color: #fbbf24; }
+.alert-item.info { background: rgba(59, 130, 246, 0.05); color: #60a5fa; border-left-color: #3b82f6; }
+.alert-time { font-size: 10px; color: rgba(255,255,255,0.4); margin-top: 2px; }
+
+.activity-list { margin-top: 15px; list-style: none; font-size: 12px; color: var(--text-dim); }
+.activity-item { position: relative; padding-left: 15px; margin-bottom: 10px; display: flex; justify-content: space-between; }
+.activity-item::before { content: "•"; color: var(--blue); position: absolute; left: 0; font-weight: bold; }
+.activity-item .time { color: rgba(255,255,255,0.4); font-size: 11px; }
+
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+
+   <div class=" sticky top-0 flex justify-between items-center px-6 py-4 border-b border-gray-700">
+    
+    <div class="flex items-center gap-2">
+    <div class="bg-blue-500 p-2 rounded-lg">
+        🌊
+    </div>
+    <div>
+        <h1 class="font-bold">Coastal Guardian</h1>
+        <p class="text-xs text-gray-400">Beach Rover Control</p>
+    </div>
+    </div>
+
+     <nav class="flex items-center gap-2 bg-[#0f172a] p-1.5 rounded-full  ">
+          
+             <a href="#" class="px-5 py-1.5 bg-blue-600 rounded-full border-white/5 text-sm font-medium hover:text-white transition">Dashboard</a>
+              <a href="control 1.html" class="px-5 py-1.5 text-gray-400 text-sm font-medium hover:text-white transition"> Mission Setup</a>
+            <a href="control 2 .html" class="px-5 py-1.5 text-gray-400 text-sm font-medium hover:text-white transition">Live Operation</a>
+            <a href="#" class="px-5 py-1.5 text-gray-400 text-sm font-medium hover:text-white transition">Logs</a>
+            <a href="#" class="px-5 py-1.5 text-gray-400 text-sm font-medium hover:text-white transition">Settings</a>
+        </nav>
+
+    <div class="flex items-center gap-2 text-green-400 text-sm">
+  
+  <!-- WiFi Icon -->
+  <svg xmlns="http://www.w3.org/2000/svg" 
+      class="w-4 h-4 text-green-400" 
+      fill="none" 
+      viewBox="0 0 24 24" 
+      stroke="currentColor" 
+      stroke-width="2">
+    <path stroke-linecap="round" stroke-linejoin="round" 
+          d="M8.111 16.404a5.5 5.5 0 017.778 0M5.05 13.343a9 9 0 0113.9 0M1.99 10.283a13 13 0 0119.02 0M12 20h.01"/>
+  </svg>
+
+ <span class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span> Connected</div>
+
+</div>
+  </div>
+</nav>
+
+    <main class="main-container">
+        <div class="control-header">
+            <div class="control-title">Mission Control Center</div>
+            <div class="control-sub">Monitor and control rover operations</div>
+        </div>
+
+        <div class="dashboard-grid">
+            <aside class="controls-panel">
+                <h3 class="section-title">Controls</h3>
+                <button class="btn-control start">▶ Start</button>
+                <button class="btn-control">
+                    <div class="icon">
+                        <svg viewBox="0 0 16 16" fill="currentColor"><path d="M5.5 3.5A.5.5 0 016 4v8a.5.5 0 01-1 0V4a.5.5 0 01.5-.5zm5 0a.5.5 0 01.5.5v8a.5.5 0 01-1 0V4a.5.5 0 01.5-.5z"/></svg>
+                    </div> Pause
+                </button>
+                <button class="btn-control">
+                    <div class="icon">
+                        <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 3a5 5 0 104.546 2.914.5.5 0 01.908-.417A6 6 0 118 2v1zM8 4.466V.534a.25.25 0 01.41-.192l2.36 1.966a.25.25 0 010 .384l-2.36 1.966a.25.25 0 01-.41-.192z"/></svg>
+                    </div> Resume
+                </button>
+                <button class="btn-control">
+                    <div class="icon">
+                        <svg viewBox="0 0 16 16" fill="currentColor"><path d="M5 5h6v6H5z"/></svg>
+                    </div> Stop
+                </button>
+                <button class="btn-control emergency">⚠ Emergency Stop</button>
+                <button class="btn-control new-task">Start New Task</button>
+            </aside>
+
+            <section>
+                <div class="card-wide">
+                    <div class="card-header">
+                        <div>
+                            <h3 style="font-size: 14px; font-weight: 600; color: #fff;">Current Status</h3>
+                            <p style="color: var(--text-dim); font-size: 12px; margin-top: 2px;">Active cleaning operation</p>
+                        </div>
+                        <div class="status-badge">Running</div>
+                    </div>
+                    <div class="progress-section">
+                        <div style="display:flex; justify-content:space-between; font-size: 13px; font-weight: 600;">
+                            <span>Completion</span>
+                            <span>45%</span>
+                        </div>
+                        <div class="bar-wrap">
+                            <div class="bar-fill">
+                                <div class="bar-glow"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="meta-row">
+                        <div class="meta-item"><small>Current Task</small> <b>Zone A - Automated Cleaning</b></div>
+                        <div class="meta-item" style="text-align: right;"><small>Last Activity</small> <b>2026-04-11 14:32</b></div>
+                    </div>
+                </div>
+
+                <div class="stats-subgrid">
+                    <div class="stat-box">
+                        <small>Area Covered</small>
+                        <h3>342<small>m²</small></h3>
+                        <div class="trend-green">↗ 12% increase</div>
+                    </div>
+                    <div class="stat-box">
+                        <small>Waste Collected</small>
+                        <h3>2.8<small>kg</small></h3>
+                        <div class="trend-green">↗ 8% increase</div>
+                    </div>
+                    <div class="stat-box">
+                        <small>Runtime</small>
+                        <h3>45<small>min</small></h3>
+                        <div style="font-size: 10px; color: var(--text-dim); margin-top: 4px;">of 120 min</div>
+                    </div>
+                </div>
+            </section>
+
+            <aside class="side-panel">
+                <div class="box-side">
+                    <h3 class="section-title" style="margin-bottom: 5px;">Alerts</h3>
+                    <div class="alert-item warn">
+                        <div>⚠ Obstacle detected at Grid C4</div>
+                        <div class="alert-time">14:28</div>
+                    </div>
+                    <div class="alert-item info">
+                        <div>🔋 Battery low warning threshold</div>
+                        <div class="alert-time">14:15</div>
+                    </div>
+                </div>
+                <div class="box-side">
+                    <h3 class="section-title">Recent Activity</h3>
+                    <ul class="activity-list">
+                        <li class="activity-item"><span>Resumed cleaning operation</span> <span class="time">14:32</span></li>
+                        <li class="activity-item"><span>Paused - obstacle avoidance</span> <span class="time">14:28</span></li>
+                        <li class="activity-item"><span>Started Zone A cleaning</span> <span class="time">14:15</span></li>
+                        <li class="activity-item"><span>Mission initialized</span> <span class="time">14:10</span></li>
+                    </ul>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+<script>
+
+
+let progress = 45;
+let running = true;
+let wifiStrength = 100; 
+let batteryLevel = 100;  // نسبة البطارية (0-100)
+
+const fill = document.querySelector(".bar-fill");
+const percent = document.getElementById("percent");
+const badge = document.querySelector(".status-badge");
+const activity = document.querySelector(".activity-list");
+const alertsBox = document.querySelectorAll(".box-side")[0];
+const wifiElem = document.querySelector(".status-indicator .wifi-strength");
+const batteryElem = document.querySelector(".status-indicator .battery-level");
+
+
+function updateUI() {
+    fill.style.width = progress + "%";
+    percent.textContent = Math.floor(progress) + "%";
+    if (wifiElem) wifiElem.textContent = Math.round(wifiStrength) + "%";
+    if (batteryElem) batteryElem.textContent = Math.round(batteryLevel) + "%";
+}
+
+function setStatus(text) {
+  badge.textContent = text;
+}
+
+function addActivity(text) {
+  const li = document.createElement("li");
+  li.className = "activity-item";
+  li.innerHTML = `<span>${text}</span> <span class="time">${new Date().toLocaleTimeString()}</span>`;
+  activity.prepend(li);
+}
+
+function addAlert(text) {
+  const div = document.createElement("div");
+  div.className = "alert-item warn";
+  div.innerHTML = `<div>${text}</div><div class="alert-time">${new Date().toLocaleTimeString()}</div>`;
+  alertsBox.appendChild(div);
+}
+
+const btns = document.querySelectorAll(".btn-control");
+btns[0].onclick = () => {
+  running = true;
+  setStatus("Running");
+  addActivity("Started");
+};
+btns[1].onclick = () => {
+  running = false;
+  setStatus("Paused");
+  addActivity("Paused");
+};
+btns[2].onclick = () => {
+  running = true;
+  setStatus("Running");
+  addActivity("Resumed");
+};
+btns[3].onclick = () => {
+  running = false;
+  progress = 0;
+  updateUI();
+  setStatus("Stopped");
+};
+btns[4].onclick = () => {
+  running = false;
+  setStatus("Emergency");
+  addAlert("⚠ Emergency Stop Activated");
+};
+btns[5].onclick = () => {
+  progress = 0;
+  running = true;
+  setStatus("Running");
+  addActivity("New Task");
+};
+
+setInterval(() => {
+    if (running && progress < 100) {
+        progress += Math.random() * 2;
+        updateUI();
+        if (Math.random() < 0.05) {
+            addAlert("⚠ Obstacle detected");
+        }
+    }
+    
+    wifiStrength = Math.max(0, Math.min(100, wifiStrength + (Math.random() - 0.5) * 4));
+    batteryLevel = Math.max(0, Math.min(100, batteryLevel - Math.random() * 0.2));
+    updateUI();
+}, 1000);
+updateUI();
+</script>
+
+</body>
+</html>
