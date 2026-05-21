@@ -1,0 +1,57 @@
+/* Global Reset and Font */
+body { 
+    font-family: 'Montserrat', sans-serif; 
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Smooth Scroll */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Custom Utilities used in HTML */
+.text-shadow-md {
+    text-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+}
+
+.text-outline-navy {
+    -webkit-text-stroke: 1px #254159;
+    color: white;
+}
+
+/* Marquee Animation */
+@keyframes marquee {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+    display: inline-block;
+    animation: marquee 20s linear infinite;
+}
+
+/* Main Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: #F5F2EE;
+}
+::-webkit-scrollbar-thumb {
+    background: #D9CDBF;
+    border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #BF9D7E;
+}
+
+/* Hide scrollbar for specific elements if needed */
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
