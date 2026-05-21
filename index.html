@@ -1,185 +1,866 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>إنشاء حساب جديد</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #0f172a;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .form-container {
-            background-color: #1e293b;
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-            width: 350px;
-            border: 1px solid #334155;
-        }
-        h2 {
-            text-align: center;
-            color: #f8fafc;
-            margin-bottom: 24px;
-            font-weight: 600;
-        }
-        .input-group {
-            margin-bottom: 16px;
-            position: relative;
-        }
-        .input-group input {
-            width: 100%;
-            padding: 12px;
-            background-color: #334155;
-            border: 1px solid #475569;
-            border-radius: 6px;
-            color: #f8fafc;
-            box-sizing: border-box;
-            transition: 0.3s;
-            font-size: 14px;
-        }
-        .input-group input:focus {
-            border-color: #38bdf8;
-            outline: none;
-        }
-        .error-msg {
-            color: #ef4444;
-            font-size: 12px;
-            margin-top: 4px;
-            display: none;
-            padding-right: 4px;
-        }
-        button {
-            width: 100%;
-            padding: 12px;
-            background-color: #38bdf8;
-            border: none;
-            border-radius: 6px;
-            color: #0f172a;
-            font-weight: bold;
-            font-size: 16px;
-            cursor: pointer;
-            transition: 0.3s;
-            margin-top: 10px;
-        }
-        button:hover {
-            background-color: #0ea5e9;
-        }
-        .link {
-            display: block;
-            text-align: center;
-            margin-top: 20px;
-            color: #94a3b8;
-            text-decoration: none;
-            font-size: 14px;
-        }
-        .link:hover {
-            color: #38bdf8;
-        }
-        .general-error {
-            color: #ef4444;
-            text-align: center;
-            margin-top: 10px;
-            font-size: 14px;
-            display: none;
-        }
-    </style>
-</head>
-<body>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coastal Guardian | Autonomous Beach Cleaning</title>
 
-    <div class="form-container">
-        <h2>إنشاء حساب</h2>
-        <form id="signup-form">
-            <div class="input-group">
-                <input type="text" id="username" placeholder="اسم المستخدم" required>
-                <div class="error-msg" id="username-error"></div>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="overflow-x-hidden bg-[#F5F2EE]">
+
+    <!-- Navbar -->
+    <div class="fixed top-6 left-0 w-full z-50 flex justify-center px-4">
+        <nav id="navbar"
+            class="w-full max-w-6xl bg-[#254159]/80 backdrop-blur-xl rounded-full px-8 py-3 flex justify-between items-center transition-all duration-500 shadow-[0_10px_30px_rgba(0,0,0,0.15)] border border-white/5">
+            <div class="flex items-center gap-3 cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                <img src="logo.png" alt="Logo" class="w-8 h-8 object-contain">
+                <span class="text-white font-[800] text-base tracking-tight">Coastal Guardian</span>
             </div>
-            
-            <div class="input-group">
-                <input type="email" id="email" placeholder="البريد الإلكتروني" required>
-                <div class="error-msg" id="email-error"></div>
-            </div>
-            
-            <div class="input-group">
-                <input type="password" id="password" placeholder="كلمة المرور" required>
-                <div class="error-msg" id="password-error"></div>
-            </div>
-            
-            <div class="input-group">
-                <input type="tel" id="phone" placeholder="رقم الهاتف" required>
-                <div class="error-msg" id="phone-error"></div>
-            </div>
-            
-            <div class="input-group">
-                <input type="text" id="serial" placeholder="الرقم التسلسلي (Serial)" required>
-                <div class="error-msg" id="serial-error"></div>
-            </div>
-            
-            <div class="general-error" id="general-error"></div>
-            
-            <button type="submit">إنشاء حساب</button>
-        </form>
-        
-        <a href="login.html" class="link">لديك حساب بالفعل؟ تسجيل الدخول</a>
+            <ul class="hidden md:flex gap-8 text-white font-[600] text-[11px] uppercase tracking-[0.2em]">
+                <li><a href="#how-it-works" class="hover:text-[#BBD8F2] transition">How It Works</a></li>
+                <li><a href="#features" class="hover:text-[#BBD8F2] transition">Key Features</a></li>
+                <li><a href="#use-cases" class="hover:text-[#BBD8F2] transition">Impact</a></li>
+            </ul>
+            <a href="login.html"
+                class="bg-gradient-to-r from-[#D9CDBF] to-[#BBD8F2] text-[#254159] px-6 py-2.5 rounded-full font-[800] text-xs uppercase tracking-wider hover:scale-105 transition-transform shadow-lg">
+                Connect Device
+            </a>
+        </nav>
     </div>
 
+    <!-- Hero Section -->
+    <section id="hero"
+        class="relative w-full min-h-[95vh] bg-[#254159] rounded-b-[80px] overflow-hidden flex flex-col items-center justify-center pt-24 pb-16 shadow-[0_35px_60px_-15px_rgba(0,0,0,0.4)]">
+        <!-- Background Image -->
+        <div class="absolute inset-0 bg-cover bg-center opacity-40 z-0 blur-[2px]"
+            style="background-image: url('beach.jpg');"></div>
+        <!-- Overlay -->
+        <div class="absolute inset-0 bg-[#254159]/40 z-10"></div>
+
+        <div class="relative z-20 text-center px-4 mt-8 flex flex-col items-center">
+            <h1
+                class="text-white text-5xl md:text-[80px] font-[900] leading-[1.1] mb-2 text-center flex flex-col drop-shadow-lg">
+                <span>Keep Your</span>
+                <span>Beaches Clean</span>
+            </h1>
+            <h2 class="text-2xl md:text-[42px] font-[700] text-[#BBD8F2] mb-10 drop-shadow-md">Without Lifting a Finger.
+            </h2>
+            <p class="text-[#D9CDBF] max-w-3xl text-base md:text-xl font-[500] mb-12 leading-relaxed text-center">
+                An autonomous cleaning system designed for coastal environments detecting, collecting, and managing
+                waste efficiently, so your shoreline stays clean, safe, and visitor-ready.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-5">
+                <a href="login.html"
+                    class="bg-gradient-to-r from-[#D9CDBF] to-[#E6F0FA] text-[#254159] px-10 py-4 rounded-full font-[900] text-sm tracking-wide shadow-[0_10px_30px_rgba(217,205,191,0.3)] hover:scale-105 transition-transform text-center inline-block">
+                    Connect Your Device
+                </a>
+                <a href="#how-it-works"
+                    class="border border-white/40 text-white px-10 py-4 rounded-full font-[800] text-sm tracking-wide hover:bg-white/10 transition-colors backdrop-blur-sm text-center inline-block">
+                    How It Works
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bridge Section -->
+    <section id="bridge" class="relative w-full py-20 bg-[#F5F2EE] z-10 flex flex-col items-center justify-center">
+        <!-- Huge Text Background -->
+        <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-0 overflow-hidden">
+            <h2
+                class="text-[18vw] font-[900] leading-[0.75] tracking-tighter bg-gradient-to-r from-[#254159] via-[#BBD8F2] to-[#BF9D7E] text-transparent bg-clip-text opacity-20 uppercase">
+                Coastal</h2>
+            <h2
+                class="text-[18vw] font-[900] leading-[0.75] tracking-tighter bg-gradient-to-r from-[#254159] via-[#BBD8F2] to-[#BF9D7E] text-transparent bg-clip-text opacity-20 uppercase">
+                Guardian</h2>
+        </div>
+
+        <div class="relative z-10 w-full max-w-6xl px-6 flex flex-col md:flex-row items-center justify-between">
+            <!-- Left Text -->
+            <div class="text-left md:w-1/4 mb-10 md:mb-0">
+                <p class="text-[#254159] font-[800] text-2xl md:text-3xl leading-tight">Cleaner Shores.<br>Smarter
+                    Future.</p>
+            </div>
+
+            <!-- Robots Stack -->
+            <div class="relative flex justify-center items-center h-[350px] md:w-2/4">
+                <!-- Top Right Shadow -->
+                <img src="robot-side.png" alt="Robot Side" class="absolute -top-4 -right-10 w-56 opacity-90 z-20">
+                <!-- Bottom Left Shadow -->
+                <img src="robot-front.png" alt="Robot Front" class="absolute -bottom-8 -left-10 w-56 opacity-90 z-20">
+                <!-- Main Robot -->
+                <img src="robot-main.png" alt="Robot Main" class="relative z-30 w-full max-w-[400px] drop-shadow-2xl">
+            </div>
+
+            <!-- Right Text -->
+            <div class="text-right md:w-1/4 mt-10 md:mt-0">
+                <p class="text-[#254159] font-[800] text-2xl md:text-3xl leading-tight">Autonomous Cleaning.<br><span
+                        class="text-[#BF9D7E]">Real Impact.</span></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- What it Helps You Do -->
+    <section
+        class="relative w-full py-24 bg-[#254159] overflow-hidden rounded-t-[80px] -mt-10 z-20 shadow-[0_-20px_50px_rgba(0,0,0,0.2)]">
+        <div class="absolute inset-0 bg-cover bg-center opacity-50 z-0 bg-fixed"
+            style="background-image: url('beach-swerving.png');"></div>
+        <div class="absolute inset-0 bg-[#254159]/70 z-10"></div>
+        <div class="relative z-20 max-w-6xl mx-auto px-6 flex flex-col items-center">
+
+            <!-- Title Pill -->
+            <div
+                class="bg-white rounded-[2rem] px-8 py-4 mb-16 shadow-[0_10px_30px_rgba(0,0,0,0.3)] inline-block text-center max-w-full w-full sm:w-auto">
+                <h2 class="text-[#254159] text-2xl md:text-[32px] font-[900] leading-tight text-center">What <span
+                        class="text-[#BF9D7E]">Coastal
+                        Guardian</span> Helps You Do ?</h2>
+            </div>
+
+            <!-- Horizontal Scroll Cards -->
+            <div class="flex gap-6 overflow-x-auto pb-12 snap-x snap-mandatory scrollbar-hide px-4 w-full cursor-grab"
+                id="cards-container">
+                <!-- Card 1 -->
+                <div
+                    class="flex-shrink-0 w-[280px] md:w-[320px] bg-white rounded-3xl overflow-hidden shadow-2xl flex flex-col snap-center group hover:-translate-y-2 transition-transform duration-500 border border-white/10">
+                    <div class="h-44 bg-gray-200 overflow-hidden relative">
+                        <img src="card-img-1.png"
+                            class="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-700"
+                            alt="Autonomous">
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow items-center text-center bg-white relative z-20">
+                        <h3 class="text-[#254159] text-[17px] font-[900] mb-2 leading-tight">Autonomous<br>Beach
+                            Cleaning</h3>
+                        <p class="text-gray-500 text-xs font-[500] mb-6">Cleans large coastal areas automatically
+                            without manual intervention.</p>
+                        <a href="login.html"
+                            class="mt-auto inline-flex items-center gap-2 bg-[#DCEAF8] text-[#254159] px-5 py-1.5 rounded-full text-[10px] font-[800] tracking-widest uppercase hover:bg-[#BBD8F2] transition shadow-sm">
+                            Get Started <span class="text-lg leading-none font-normal">›</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div
+                    class="flex-shrink-0 w-[280px] md:w-[320px] bg-white rounded-3xl overflow-hidden shadow-2xl flex flex-col snap-center group hover:-translate-y-2 transition-transform duration-500 border border-white/10">
+                    <div class="h-44 bg-gray-200 overflow-hidden relative">
+                        <img src="card-img-2.png"
+                            class="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-700"
+                            alt="Waste">
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow items-center text-center bg-white relative z-20">
+                        <h3 class="text-[#254159] text-[17px] font-[900] mb-2 leading-tight">Smart Waste<br>Collection
+                        </h3>
+                        <p class="text-gray-500 text-xs font-[500] mb-6">Detects, separates, and collects waste while
+                            preserving clean sand.</p>
+                        <a href="login.html"
+                            class="mt-auto inline-flex items-center gap-2 bg-[#DCEAF8] text-[#254159] px-5 py-1.5 rounded-full text-[10px] font-[800] tracking-widest uppercase hover:bg-[#BBD8F2] transition shadow-sm">
+                            Get Started <span class="text-lg leading-none font-normal">›</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div
+                    class="flex-shrink-0 w-[280px] md:w-[320px] bg-white rounded-3xl overflow-hidden shadow-2xl flex flex-col snap-center group hover:-translate-y-2 transition-transform duration-500 border border-white/10">
+                    <div class="h-44 bg-gray-200 overflow-hidden relative">
+                        <img src="card-img-3.png"
+                            class="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-700"
+                            alt="Real-Time">
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow items-center text-center bg-white relative z-20">
+                        <h3 class="text-[#254159] text-[17px] font-[900] mb-2 leading-tight">Real-Time<br>Monitoring
+                        </h3>
+                        <p class="text-gray-500 text-xs font-[500] mb-6">Track performance, status, and cleaning
+                            progress instantly.</p>
+                        <a href="login.html"
+                            class="mt-auto inline-flex items-center gap-2 bg-[#DCEAF8] text-[#254159] px-5 py-1.5 rounded-full text-[10px] font-[800] tracking-widest uppercase hover:bg-[#BBD8F2] transition shadow-sm">
+                            Get Started <span class="text-lg leading-none font-normal">›</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div
+                    class="flex-shrink-0 w-[280px] md:w-[320px] bg-white rounded-3xl overflow-hidden shadow-2xl flex flex-col snap-center group hover:-translate-y-2 transition-transform duration-500 border border-white/10">
+                    <div class="h-44 bg-gray-200 overflow-hidden relative">
+                        <img src="card-img-4.png"
+                            class="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-700"
+                            alt="Adaptive Terrain">
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow items-center text-center bg-white relative z-20">
+                        <h3 class="text-[#254159] text-[17px] font-[900] mb-2 leading-tight">Adaptive
+                            Terrain<br>Navigation</h3>
+                        <p class="text-gray-500 text-xs font-[500] mb-6">Moves smoothly across uneven sand and coastal
+                            terrain.</p>
+                        <a href="login.html"
+                            class="mt-auto inline-flex items-center gap-2 bg-[#DCEAF8] text-[#254159] px-5 py-1.5 rounded-full text-[10px] font-[800] tracking-widest uppercase hover:bg-[#BBD8F2] transition shadow-sm">
+                            Get Started <span class="text-lg leading-none font-normal">›</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card 5 -->
+                <div
+                    class="flex-shrink-0 w-[280px] md:w-[320px] bg-white rounded-3xl overflow-hidden shadow-2xl flex flex-col snap-center group hover:-translate-y-2 transition-transform duration-500 border border-white/10">
+                    <div class="h-44 bg-gray-200 overflow-hidden relative">
+                        <img src="card-img-5.png"
+                            class="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-700"
+                            alt="Eco-Friendly">
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow items-center text-center bg-white relative z-20">
+                        <h3 class="text-[#254159] text-[17px] font-[900] mb-2 leading-tight">Eco-Friendly<br>Operation
+                        </h3>
+                        <p class="text-gray-500 text-xs font-[500] mb-6">Designed to protect marine ecosystems and
+                            reduce pollution impact.</p>
+                        <a href="login.html"
+                            class="mt-auto inline-flex items-center gap-2 bg-[#DCEAF8] text-[#254159] px-5 py-1.5 rounded-full text-[10px] font-[800] tracking-widest uppercase hover:bg-[#BBD8F2] transition shadow-sm">
+                            Get Started <span class="text-lg leading-none font-normal">›</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card 6 -->
+                <div
+                    class="flex-shrink-0 w-[280px] md:w-[320px] bg-white rounded-3xl overflow-hidden shadow-2xl flex flex-col snap-center group hover:-translate-y-2 transition-transform duration-500 border border-white/10">
+                    <div class="h-44 bg-gray-200 overflow-hidden relative">
+                        <img src="card-img-6.png"
+                            class="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-700"
+                            alt="Continuous Operation">
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow items-center text-center bg-white relative z-20">
+                        <h3 class="text-[#254159] text-[17px] font-[900] mb-2 leading-tight">Continuous<br>Operation
+                            Efficiency</h3>
+                        <p class="text-gray-500 text-xs font-[500] mb-6">Runs efficiently with optimized energy and long
+                            operational cycles.</p>
+                        <a href="login.html"
+                            class="mt-auto inline-flex items-center gap-2 bg-[#DCEAF8] text-[#254159] px-5 py-1.5 rounded-full text-[10px] font-[800] tracking-widest uppercase hover:bg-[#BBD8F2] transition shadow-sm">
+                            Get Started <span class="text-lg leading-none font-normal">›</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="relative w-full py-24 bg-[#254159] overflow-hidden z-20">
+        <div class="absolute inset-0 bg-cover bg-center opacity-50 z-0 bg-fixed"
+            style="background-image: url('beach-swerving.png');"></div>
+        <div class="absolute inset-0 bg-[#254159]/70 z-10"></div>
+        <div class="relative z-10 max-w-5xl mx-auto px-6 flex flex-col items-center">
+
+            <!-- Title Row -->
+            <div class="flex flex-wrap items-center justify-center mb-16 md:mb-24 w-full relative gap-y-4">
+                <!-- COASTAL -->
+                <div
+                    class="hidden sm:block bg-[#D9CDBF] rounded-l-full rounded-r-none px-6 py-3 shadow-md translate-x-4 z-0">
+                    <span class="text-white text-lg md:text-xl font-[800] uppercase tracking-wider">COASTAL</span>
+                </div>
+                <!-- HOW IT WORKS -->
+                <div
+                    class="bg-white rounded-[2rem] md:rounded-xl px-8 py-4 md:px-10 md:py-4 shadow-[0_0_30px_rgba(255,255,255,0.1)] z-10 relative border border-white/40 text-center max-w-full">
+                    <h2
+                        class="text-[#254159] text-[24px] md:text-[32px] font-[900] tracking-wider uppercase leading-none text-center">
+                        HOW IT WORKS</h2>
+                </div>
+                <!-- GUARDIAN -->
+                <div
+                    class="hidden sm:block bg-[#1f364d] border border-white/20 border-l-0 rounded-r-full rounded-l-none px-6 py-3 shadow-md -translate-x-4 z-0">
+                    <span class="text-[#BBD8F2] text-lg md:text-xl font-[800] uppercase tracking-wider">GUARDIAN</span>
+                </div>
+            </div>
+
+            <!-- Timeline Steps -->
+            <div class="w-full relative flex flex-col gap-12 md:gap-24 items-center">
+
+                <!-- SVG Dashed Line connecting steps -->
+                <svg class="absolute top-0 bottom-0 w-full h-full pointer-events-none hidden md:block z-0"
+                    style="left: 0;">
+                    <path d="M 350 100 Q 500 150 600 250 T 600 350" stroke="white" stroke-width="2"
+                        stroke-dasharray="8 8" fill="transparent" opacity="0.4" />
+                    <path d="M 600 350 Q 500 450 350 550 T 350 650" stroke="white" stroke-width="2"
+                        stroke-dasharray="8 8" fill="transparent" opacity="0.4" />
+                    <path d="M 350 650 Q 500 750 600 850" stroke="white" stroke-width="2" stroke-dasharray="8 8"
+                        fill="transparent" opacity="0.4" />
+                </svg>
+
+                <!-- Step 1 -->
+                <div class="relative z-10 w-full max-w-[500px] lg:-ml-[300px]">
+                    <div class="relative rounded-[30px] overflow-hidden shadow-2xl group border border-white/10">
+                        <!-- Background Image & Overlay -->
+                        <div class="absolute inset-0 z-0">
+                            <img src="planning.png"
+                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                alt="Planning">
+                            <div class="absolute inset-0 bg-[#254159]/70 group-hover:bg-[#254159]/60 transition-colors">
+                            </div>
+                        </div>
+
+                        <!-- Content -->
+                        <div class="relative z-10 p-8 flex items-center gap-6">
+                            <div class="text-white/20 font-[900] text-7xl leading-none">01</div>
+                            <div>
+                                <h3 class="text-white font-[800] text-xl mb-2">Define the Cleaning Area</h3>
+                                <p class="text-[#BBD8F2]/80 text-xs font-[500] leading-relaxed">Set the cleaning
+                                    boundaries and operational zone through a simple and intuitive interface.</p>
+                            </div>
+                        </div>
+                        <!-- Pill -->
+                        <div class="absolute bottom-6 left-8 z-20">
+                            <span
+                                class="bg-white text-[#254159] text-[10px] font-[900] w-40 py-2.5 rounded-full uppercase tracking-widest shadow-lg text-center inline-block">PLANNING</span>
+                        </div>
+                        <div class="h-10"></div> <!-- Spacer for absolute pill -->
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="relative z-10 w-full max-w-[500px] lg:ml-[300px]">
+                    <div class="relative rounded-[30px] overflow-hidden shadow-2xl group border border-white/10">
+                        <!-- Background Image & Overlay -->
+                        <div class="absolute inset-0 z-0">
+                            <img src="active.png"
+                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                alt="Initialization">
+                            <div class="absolute inset-0 bg-[#254159]/70 group-hover:bg-[#254159]/60 transition-colors">
+                            </div>
+                        </div>
+
+                        <!-- Content -->
+                        <div class="relative z-10 p-8 flex items-center gap-6">
+                            <div class="text-white/20 font-[900] text-7xl leading-none">02</div>
+                            <div>
+                                <h3 class="text-white font-[800] text-xl mb-2">System Activation</h3>
+                                <p class="text-[#BBD8F2]/80 text-xs font-[500] leading-relaxed">Activate the robot to
+                                    begin scanning the surface and preparing for autonomous operation.</p>
+                            </div>
+                        </div>
+                        <!-- Pill -->
+                        <div class="absolute bottom-6 left-8 z-20">
+                            <span
+                                class="bg-white text-[#254159] text-[10px] font-[900] w-40 py-2.5 rounded-full uppercase tracking-widest shadow-lg text-center inline-block">INITIALIZATION</span>
+                        </div>
+                        <div class="h-10"></div>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="relative z-10 w-full max-w-[500px] lg:-ml-[300px]">
+                    <div class="relative rounded-[30px] overflow-hidden shadow-2xl group border border-white/10">
+                        <!-- Background Image & Overlay -->
+                        <div class="absolute inset-0 z-0">
+                            <img src="clean.png"
+                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                alt="Active">
+                            <div class="absolute inset-0 bg-[#254159]/70 group-hover:bg-[#254159]/60 transition-colors">
+                            </div>
+                        </div>
+
+                        <!-- Content -->
+                        <div class="relative z-10 p-8 flex items-center gap-6">
+                            <div class="text-white/20 font-[900] text-7xl leading-none">03</div>
+                            <div>
+                                <h3 class="text-white font-[800] text-xl mb-2">Autonomous Cleaning</h3>
+                                <p class="text-[#BBD8F2]/80 text-xs font-[500] leading-relaxed">The robot navigates the
+                                    area, collects waste, and filters sand efficiently using its integrated mechanism.
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Pill -->
+                        <div class="absolute bottom-6 left-8 z-20">
+                            <span
+                                class="bg-white text-[#254159] text-[10px] font-[900] w-40 py-2.5 rounded-full uppercase tracking-widest shadow-lg text-center inline-block">ACTIVE</span>
+                        </div>
+                        <div class="h-10"></div>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="relative z-10 w-full max-w-[500px] lg:ml-[300px]">
+                    <div class="relative rounded-[30px] overflow-hidden shadow-2xl group border border-white/10">
+                        <!-- Background Image & Overlay -->
+                        <div class="absolute inset-0 z-0">
+                            <img src="report.png"
+                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                alt="Reporting">
+                            <div class="absolute inset-0 bg-[#254159]/70 group-hover:bg-[#254159]/60 transition-colors">
+                            </div>
+                        </div>
+
+                        <!-- Content -->
+                        <div class="relative z-10 p-8 flex items-center gap-6">
+                            <div class="text-white/20 font-[900] text-7xl leading-none">04</div>
+                            <div>
+                                <h3 class="text-white font-[800] text-xl mb-2">Monitoring & Completion</h3>
+                                <p class="text-[#BBD8F2]/80 text-xs font-[500] leading-relaxed">Track progress, receive
+                                    live updates, and ensure the cleaning task is completed successfully.</p>
+                            </div>
+                        </div>
+                        <!-- Pill -->
+                        <div class="absolute bottom-6 left-8 z-20">
+                            <span
+                                class="bg-white text-[#254159] text-[10px] font-[900] w-40 py-2.5 rounded-full uppercase tracking-widest shadow-lg text-center inline-block">REPORTING</span>
+                        </div>
+                        <div class="h-10"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Ribbon Separator -->
+    <div
+        class="w-full overflow-hidden whitespace-nowrap bg-gradient-to-r from-[#D9CDBF] to-[#BF9D7E] py-4 shadow-[0_10px_20px_rgba(0,0,0,0.1)] z-40 relative border-y border-white/20">
+        <div class="inline-block animate-marquee">
+            <p class="text-white font-[800] text-sm tracking-[0.2em] uppercase inline-block pr-8">
+                COASTAL GUARDIAN &bull; COASTAL GUARDIAN &bull; COASTAL GUARDIAN &bull; COASTAL GUARDIAN &bull; COASTAL
+                GUARDIAN &bull; COASTAL GUARDIAN &bull; COASTAL GUARDIAN &bull; COASTAL GUARDIAN &bull; COASTAL GUARDIAN
+                &bull; COASTAL GUARDIAN &bull; COASTAL GUARDIAN &bull; COASTAL GUARDIAN &bull; COASTAL GUARDIAN &bull;
+                COASTAL GUARDIAN &bull; COASTAL GUARDIAN
+            </p>
+        </div>
+    </div>
+
+    <!-- Key Features Section -->
+    <section id="features" class="relative w-full py-24 bg-[#F5F2EE] overflow-hidden z-30">
+        <div class="max-w-6xl mx-auto px-6 relative z-10">
+
+            <!-- Title Pill -->
+            <div class="bg-[#D9CDBF] rounded-r-full px-12 py-3 mb-12 -ml-6 self-start shadow-sm inline-block">
+                <h2 class="text-white text-[28px] md:text-[36px] font-[900] tracking-wide text-shadow-sm">Key Features :
+                </h2>
+            </div>
+
+            <!-- Bento Box Layout -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+
+                <!-- Block 1: Left (Cards) -->
+                <div class="flex flex-col gap-6">
+                    <div
+                        class="flex-1 bg-white rounded-[32px] p-10 shadow-[0_15px_40px_rgba(0,0,0,0.08)] hover:shadow-[0_25px_50px_rgba(0,0,0,0.12)] transition-shadow duration-500 flex flex-col justify-center group">
+                        <h3
+                            class="text-[#254159] font-[900] text-xl mb-3 leading-tight group-hover:translate-x-2 transition-transform duration-300">
+                            Precision Area<br>Navigation</h3>
+                        <p
+                            class="text-gray-500 font-[500] text-sm md:text-base group-hover:translate-x-2 transition-transform duration-300 delay-75">
+                            Optimized movement for full area coverage with minimal overlap.</p>
+                    </div>
+                    <div
+                        class="flex-1 bg-white rounded-[32px] p-10 shadow-[0_15px_40px_rgba(0,0,0,0.08)] hover:shadow-[0_25px_50px_rgba(0,0,0,0.12)] transition-shadow duration-500 flex flex-col justify-center group">
+                        <h3
+                            class="text-[#BF9D7E] font-[900] text-xl mb-3 leading-tight group-hover:translate-x-2 transition-transform duration-300">
+                            Manual Override<br>Control</h3>
+                        <p
+                            class="text-gray-500 font-[500] text-sm md:text-base group-hover:translate-x-2 transition-transform duration-300 delay-75">
+                            Take control instantly when needed for precise adjustments.</p>
+                    </div>
+                </div>
+
+                <!-- Block 1: Right (Image) -->
+                <div class="flex items-center justify-center min-h-[350px] group cursor-pointer">
+                    <img src="closeup.png" alt="Robot Closeup"
+                        class="w-full max-w-[450px] object-contain drop-shadow-2xl group-hover:-translate-y-4 group-hover:drop-shadow-[0_0_35px_rgba(147,197,253,0.8)] transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]">
+                </div>
+
+                <!-- Block 2: Left (Image) -->
+                <div class="flex items-center justify-center min-h-[350px] group cursor-pointer order-2 md:order-1">
+                    <img src="viewside.png" alt="Robot Side"
+                        class="w-full max-w-[450px] object-contain drop-shadow-2xl group-hover:-translate-y-4 group-hover:drop-shadow-[0_0_35px_rgba(147,197,253,0.8)] transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]">
+                </div>
+
+                <!-- Block 2: Right (Cards) -->
+                <div class="flex flex-col gap-6 order-1 md:order-2">
+                    <div
+                        class="flex-1 bg-white rounded-[32px] p-10 shadow-[0_15px_40px_rgba(0,0,0,0.08)] hover:shadow-[0_25px_50px_rgba(0,0,0,0.12)] transition-shadow duration-500 flex flex-col justify-center group">
+                        <h3
+                            class="text-[#254159] font-[900] text-xl mb-3 leading-tight group-hover:translate-x-2 transition-transform duration-300">
+                            Real-Time Feedback<br>System</h3>
+                        <p
+                            class="text-gray-500 font-[500] text-sm md:text-base group-hover:translate-x-2 transition-transform duration-300 delay-75">
+                            Instant updates on performance, alerts, and system status.</p>
+                    </div>
+                    <div
+                        class="flex-1 bg-white rounded-[32px] p-10 shadow-[0_15px_40px_rgba(0,0,0,0.08)] hover:shadow-[0_25px_50px_rgba(0,0,0,0.12)] transition-shadow duration-500 flex flex-col justify-center group">
+                        <h3
+                            class="text-[#BF9D7E] font-[900] text-xl mb-3 leading-tight group-hover:translate-x-2 transition-transform duration-300">
+                            Energy Efficient<br>System</h3>
+                        <p
+                            class="text-gray-500 font-[500] text-sm md:text-base group-hover:translate-x-2 transition-transform duration-300 delay-75">
+                            Designed for long operation cycles with optimized usage.</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Use Cases Section -->
+    <section id="use-cases" class="relative w-full py-32 overflow-hidden"
+        style="background: linear-gradient(to bottom, #F5F2EE 0%, #F5F2EE 10%, #DCEAF8 35%, #254159 70%, #254159 100%);">
+        <div class="max-w-[1100px] mx-auto px-6 flex flex-col items-center relative z-10">
+
+            <!-- Top Header Area -->
+            <div class="use-cases-header flex flex-col items-center text-center mb-16">
+                <h2 class="text-[#254159] text-6xl md:text-[72px] font-[900] tracking-tight mb-6 drop-shadow-sm"
+                    style="font-family: 'Montserrat', sans-serif;">Use Cases</h2>
+                <p class="text-[#254159] font-[400] text-[20px] max-w-2xl mx-auto leading-relaxed"
+                    style="font-family: 'Inter', sans-serif;">Designed To Adapt Across Different Coastal Environments
+                    And Operational Needs.</p>
+            </div>
+
+            <!-- Icons Row -->
+            <div class="use-cases-icons hidden md:flex justify-center w-full mb-10" style="gap: 272px;">
+                <div
+                    class="w-[80px] h-[80px] bg-[#F5F2EE] rounded-full shadow-md relative border-2 border-[#D9CDBF] flex items-center justify-center p-3">
+                    <img src="B.png" alt="Icon placeholder" class="w-full h-full object-contain">
+                </div>
+                <div
+                    class="w-[80px] h-[80px] bg-[#F5F2EE] rounded-full shadow-md relative border-2 border-[#D9CDBF] flex items-center justify-center p-3">
+                    <img src="H.png" alt="Icon placeholder" class="w-full h-full object-contain">
+                </div>
+                <div
+                    class="w-[80px] h-[80px] bg-[#F5F2EE] rounded-full shadow-md relative border-2 border-[#D9CDBF] flex items-center justify-center p-3">
+                    <img src="F.png" alt="Icon placeholder" class="w-full h-full object-contain">
+                </div>
+            </div>
+
+            <!-- The Three Interactive Cards -->
+            <div class="flex flex-col md:flex-row justify-center gap-8 w-full">
+
+                <!-- Card 1 -->
+                <div
+                    class="case-card w-full md:w-[320px] h-[360px] rounded-[24px] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.2)] relative flex flex-col group cursor-pointer border border-white/10 bg-[#325B8C]">
+                    <!-- Image Area -->
+                    <div
+                        class="relative w-full h-[300px] group-hover:h-[180px] overflow-hidden bg-gray-200 transition-all duration-500 ease-in-out shrink-0">
+                        <!-- Verification Badge -->
+                        <div
+                            class="absolute top-4 left-4 w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-400 z-20 shadow-lg">
+                            <svg class="w-5 h-5 text-[#325B8C]" fill="none" stroke="currentColor" stroke-width="3"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                        </div>
+                        <img src="X.png"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ease-out"
+                            alt="Public Beaches">
+                        <!-- Overlay for Title -->
+                        <div class="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#1A3048] to-transparent">
+                        </div>
+                        <h3
+                            class="absolute bottom-5 left-0 w-full text-center text-white font-[800] text-2xl z-10 transition-transform duration-400 drop-shadow-md">
+                            Public Beaches</h3>
+                    </div>
+                    <!-- Hidden Paragraph Reveal -->
+                    <div
+                        class="bg-white overflow-hidden h-0 group-hover:h-[120px] transition-all duration-500 ease-in-out w-full shrink-0 flex items-center justify-center">
+                        <div class="p-6 text-center w-full">
+                            <p class="text-[#254159] font-[600] text-[15px] leading-relaxed m-0">Maintain large coastal
+                                areas efficiently with minimal manual effort.</p>
+                        </div>
+                    </div>
+                    <!-- Button -->
+                    <div
+                        class="w-full h-[60px] bg-[#325B8C] group-hover:bg-[#D9CDBF] transition-colors duration-400 shrink-0 flex items-center justify-center">
+                        <span
+                            class="text-white group-hover:text-[#254159] font-[500] text-[16px] tracking-wide transition-colors duration-400">pick
+                            your slot</span>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div
+                    class="case-card w-full md:w-[320px] h-[360px] rounded-[24px] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.2)] relative flex flex-col group cursor-pointer border border-white/10 bg-[#325B8C]">
+                    <!-- Image Area -->
+                    <div
+                        class="relative w-full h-[300px] group-hover:h-[180px] overflow-hidden bg-gray-200 transition-all duration-500 ease-in-out shrink-0">
+                        <!-- Verification Badge -->
+                        <div
+                            class="absolute top-4 left-4 w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-400 z-20 shadow-lg">
+                            <svg class="w-5 h-5 text-[#325B8C]" fill="none" stroke="currentColor" stroke-width="3"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                        </div>
+                        <img src="Y.png"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ease-out"
+                            alt="Private Resorts">
+                        <!-- Overlay for Title -->
+                        <div class="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#1A3048] to-transparent">
+                        </div>
+                        <h3
+                            class="absolute bottom-5 left-0 w-full text-center text-white font-[800] text-2xl z-10 transition-transform duration-400 drop-shadow-md">
+                            Private Resorts</h3>
+                    </div>
+                    <!-- Hidden Paragraph Reveal -->
+                    <div
+                        class="bg-white overflow-hidden h-0 group-hover:h-[120px] transition-all duration-500 ease-in-out w-full shrink-0 flex items-center justify-center">
+                        <div class="p-6 text-center w-full">
+                            <p class="text-[#254159] font-[600] text-[15px] leading-relaxed m-0">Ensure a clean, premium
+                                experience for guests at all times.</p>
+                        </div>
+                    </div>
+                    <!-- Button -->
+                    <div
+                        class="w-full h-[60px] bg-[#325B8C] group-hover:bg-[#D9CDBF] transition-colors duration-400 shrink-0 flex items-center justify-center">
+                        <span
+                            class="text-white group-hover:text-[#254159] font-[500] text-[16px] tracking-wide transition-colors duration-400">pick
+                            your slot</span>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div
+                    class="case-card w-full md:w-[320px] h-[360px] rounded-[24px] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.2)] relative flex flex-col group cursor-pointer border border-white/10 bg-[#325B8C]">
+                    <!-- Image Area -->
+                    <div
+                        class="relative w-full h-[300px] group-hover:h-[180px] overflow-hidden bg-gray-200 transition-all duration-500 ease-in-out shrink-0">
+                        <!-- Verification Badge -->
+                        <div
+                            class="absolute top-4 left-4 w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-400 z-20 shadow-lg">
+                            <svg class="w-5 h-5 text-[#325B8C]" fill="none" stroke="currentColor" stroke-width="3"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                        </div>
+                        <img src="Z.png"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ease-out"
+                            alt="Coastal Facilities">
+                        <!-- Overlay for Title -->
+                        <div class="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#1A3048] to-transparent">
+                        </div>
+                        <h3
+                            class="absolute bottom-5 left-0 w-full text-center text-white font-[800] text-2xl z-10 transition-transform duration-400 drop-shadow-md">
+                            Coastal Facilities</h3>
+                    </div>
+                    <!-- Hidden Paragraph Reveal -->
+                    <div
+                        class="bg-white overflow-hidden h-0 group-hover:h-[120px] transition-all duration-500 ease-in-out w-full shrink-0 flex items-center justify-center">
+                        <div class="p-6 text-center w-full">
+                            <p class="text-[#254159] font-[600] text-[15px] leading-relaxed m-0">Support continuous
+                                cleaning operations in high-traffic zones.</p>
+                        </div>
+                    </div>
+                    <!-- Button -->
+                    <div
+                        class="w-full h-[60px] bg-[#325B8C] group-hover:bg-[#D9CDBF] transition-colors duration-400 shrink-0 flex items-center justify-center">
+                        <span
+                            class="text-white group-hover:text-[#254159] font-[500] text-[16px] tracking-wide transition-colors duration-400">pick
+                            your slot</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Seamless Gradient Ribbon Separator -->
+    <div class="w-full h-[18px] shadow-[0_2px_10px_rgba(0,0,0,0.1)] z-40 relative"
+        style="background: linear-gradient(to right, #D9CDBF 0%, #BF9D7E 25%, #254159 50%, #BBD8F2 75%, #D9CDBF 100%);">
+    </div>
+
+    <!-- Final CTA & About -->
+    <section class="relative w-full bg-white rounded-t-[60px] pt-10 pb-0">
+        <!-- Vector Background -->
+        <div class="absolute top-[450px] left-0 w-full z-0 pointer-events-none">
+            <img src="vector2.png" alt="Curved Background" class="w-full h-auto drop-shadow-lg">
+        </div>
+
+        <div class="max-w-6xl mx-auto px-6 relative z-10 pt-16">
+            <!-- Decorative Robot Top Right (Positioned at the upper right of the vector) -->
+            <img src="BACK.png"
+                class="absolute -right-12 top-[480px] w-[350px] md:w-[450px] drop-shadow-2xl hidden md:block hover:scale-105 transition-transform z-0 opacity-90"
+                style="transform: rotate(15deg);">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-16 mb-24">
+                <!-- Left Checklist -->
+                <div class="bg-white rounded-[40px] p-10 shadow-2xl border border-white/40 max-w-lg w-full">
+                    <ul class="space-y-6">
+                        <li class="flex items-center gap-4 group">
+                            <div
+                                class="bg-[#D9CDBF] rounded-full p-1.5 shrink-0 group-hover:scale-110 transition-transform">
+                                <svg class="w-4 h-4 text-[#254159]" fill="none" stroke="currentColor" stroke-width="3"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            </div>
+                            <span class="text-[#254159] font-[700] text-[15px]">Works on sand for seasons to come with
+                                minimal care</span>
+                        </li>
+                        <li class="flex items-center gap-4 group">
+                            <div
+                                class="bg-[#D9CDBF] rounded-full p-1.5 shrink-0 group-hover:scale-110 transition-transform">
+                                <svg class="w-4 h-4 text-[#254159]" fill="none" stroke="currentColor" stroke-width="3"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            </div>
+                            <span class="text-[#254159] font-[700] text-[15px]">Prevents plastic life from polluting
+                                ecosystems</span>
+                        </li>
+                        <li class="flex items-center gap-4 group">
+                            <div
+                                class="bg-[#D9CDBF] rounded-full p-1.5 shrink-0 group-hover:scale-110 transition-transform">
+                                <svg class="w-4 h-4 text-[#254159]" fill="none" stroke="currentColor" stroke-width="3"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            </div>
+                            <span class="text-[#254159] font-[700] text-[15px]">Increases public health and beach
+                                safety</span>
+                        </li>
+                        <li class="flex items-center gap-4 group">
+                            <div
+                                class="bg-[#D9CDBF] rounded-full p-1.5 shrink-0 group-hover:scale-110 transition-transform">
+                                <svg class="w-4 h-4 text-[#254159]" fill="none" stroke="currentColor" stroke-width="3"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            </div>
+                            <span class="text-[#254159] font-[700] text-[15px]">Enhances tourism experience and coastal
+                                beauty</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Right Bold Text -->
+                <div
+                    class="text-left md:text-right flex flex-col items-start md:items-end w-full md:w-1/2 md:-translate-y-6">
+                    <img src="logo.png" alt="Logo" class="w-32 md:w-48 h-auto mb-4 object-contain drop-shadow-sm">
+                    <h2 class="text-[#254159] text-4xl md:text-[50px] font-[900] leading-[1.1] tracking-tight">Cleaner
+                        Beaches.<br>Safer Environments.<br>Smarter Future.</h2>
+                </div>
+            </div>
+
+            <!-- Start Smarter CTA -->
+            <div class="text-center relative mt-[350px] z-10">
+
+                <h2
+                    class="text-white text-5xl md:text-[64px] font-[900] mb-8 leading-[1.05] tracking-tight relative z-20">
+                    Start
+                    Smarter<br>Beach Cleaning<br>Today</h2>
+                <p class="text-white/90 font-[600] text-lg max-w-xl mx-auto mb-10 leading-relaxed relative z-20">Connect
+                    your
+                    device and take full control of autonomous cleaning in real time.</p>
+
+                <div class="flex flex-col sm:flex-row justify-center gap-5 relative z-20">
+                    <a href="login.html"
+                        class="bg-gradient-to-r from-[#D9CDBF] to-[#BBD8F2] text-[#254159] px-10 py-4 rounded-full font-[900] text-sm tracking-widest uppercase shadow-xl hover:scale-105 transition-transform text-center inline-block">Connect
+                        Your Device</a>
+                    <a href="#about"
+                        class="border border-[#254159] bg-transparent text-[#254159] px-10 py-4 rounded-full font-[800] text-sm tracking-widest uppercase shadow-md hover:bg-white/10 transition-colors text-center inline-block">Know
+                        More About Us !</a>
+                </div>
+            </div>
+
+            <!-- About Coastal Guardian Block (Bottom Right) -->
+            <div id="about"
+                class="mt-16 flex flex-col md:flex-row justify-between items-center md:items-end gap-10 relative z-40 pb-10">
+                <img src="right-robot.png" alt="Robot"
+                    class="w-full max-w-[500px] md:max-w-[600px] drop-shadow-[0_20px_50px_rgba(0,0,0,0.2)] relative z-40 -mb-24">
+                <div
+                    class="max-w-md w-full flex flex-col items-center md:items-start text-center md:text-left relative z-10 pb-16">
+                    <h3 class="text-[#254159] font-[900] text-4xl mb-4 tracking-tight">About Coastal Guardian</h3>
+                    <p class="text-gray-600 text-lg font-[500] mb-8 leading-relaxed">A smart solution designed to
+                        transform coastal cleaning through automation and intelligent systems.</p>
+                    <a href="login.html"
+                        class="bg-[#D9CDBF] border border-[#254159] text-[#254159] px-10 py-3 rounded-full text-sm font-[800] tracking-widest uppercase hover:bg-white hover:scale-105 transition-all text-center inline-block shadow-md">Learn
+                        More !</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#254159] pt-20 pb-8 relative rounded-t-[60px] -mt-16 z-30 shadow-[0_-10px_40px_rgba(0,0,0,0.3)]">
+        <div class="max-w-6xl mx-auto px-6">
+            <div
+                class="flex flex-col md:flex-row justify-between items-start gap-12 mb-16 border-b border-white/10 pb-16">
+                <!-- Brand -->
+                <div class="flex flex-col items-start max-w-sm">
+                    <div class="flex items-center gap-4 mb-6">
+                        <img src="logo.png" alt="Logo" class="w-12 h-12 object-contain brightness-0 invert">
+                        <span class="text-white font-[900] text-2xl tracking-tight">Coastal Guardian</span>
+                    </div>
+                    <p class="text-[#BBD8F2]/60 text-sm leading-relaxed font-[500]">Pioneering autonomous technologies
+                        for cleaner, safer, and smarter coastal communities globally.</p>
+                </div>
+
+                <!-- Links Container -->
+                <div class="flex gap-16 flex-wrap">
+                    <!-- Links 1 -->
+                    <div class="flex flex-col gap-4">
+                        <h4 class="text-white font-[800] text-sm uppercase tracking-widest mb-2">Company</h4>
+                        <a href="About_US.html" class="text-[#BBD8F2]/70 text-sm font-[500] hover:text-white transition">About
+                            Us</a>
+                        <a href="#" class="text-[#BBD8F2]/70 text-sm font-[500] hover:text-white transition">Careers</a>
+                        <a href="#" class="text-[#BBD8F2]/70 text-sm font-[500] hover:text-white transition">Press</a>
+                    </div>
+
+                    <!-- Links 2 -->
+                    <div class="flex flex-col gap-4">
+                        <h4 class="text-white font-[800] text-sm uppercase tracking-widest mb-2">Resources</h4>
+                        <a href="#"
+                            class="text-[#BBD8F2]/70 text-sm font-[500] hover:text-white transition">Documentation</a>
+                        <a href="#" class="text-[#BBD8F2]/70 text-sm font-[500] hover:text-white transition">Support</a>
+                        <a href="#" class="text-[#BBD8F2]/70 text-sm font-[500] hover:text-white transition">API
+                            Reference</a>
+                    </div>
+
+                    <!-- Links 3 -->
+                    <div class="flex flex-col gap-4">
+                        <h4 class="text-white font-[800] text-sm uppercase tracking-widest mb-2">Legal</h4>
+                        <a href="#" class="text-[#BBD8F2]/70 text-sm font-[500] hover:text-white transition">Privacy
+                            Policy</a>
+                        <a href="#" class="text-[#BBD8F2]/70 text-sm font-[500] hover:text-white transition">Terms of
+                            Service</a>
+                        <a href="#" class="text-[#BBD8F2]/70 text-sm font-[500] hover:text-white transition">Cookie
+                            Policy</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-[#BBD8F2]/40 text-xs font-[600]">© 2026 Coastal Guardian. All rights reserved.</p>
+                <div class="flex gap-4">
+                    <a href="#"
+                        class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/20 transition">
+                        <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
+                        </svg>
+                    </a>
+                    <a href="#"
+                        class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/20 transition">
+                        <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
     <script>
-        document.getElementById("signup-form").addEventListener("submit", async function(e) {
-            e.preventDefault();
-            
-            // إخفاء رسائل الخطأ القديمة
-            document.querySelectorAll(".error-msg").forEach(msg => msg.style.display = 'none');
-            document.getElementById("general-error").style.display = 'none';
-            
-            const username = document.getElementById("username").value;
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("password").value;
-            const phone = document.getElementById("phone").value;
-            const serial = document.getElementById("serial").value;
-            
-            try {
-                // إرسال البيانات للسيرفر المحلي الخاص بك
-                const response = await fetch('http://localhost:5000/api/signup', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ username, email, password, phone, serial })
-                });
-                
-                const data = await response.json();
-                
-                if (response.ok) {
-                    // التعديل السحري: عند النجاح، وديه لصفحة تسجيل الدخول علطول
-                    alert("تم إنشاء الحساب بنجاح! جاري تحويلك لصفحة تسجيل الدخول.");
-                    window.location.href = "login.html";
-                } else {
-                    // عرض رسائل الخطأ القادمة من السيرفر لو في مشكلة في البيانات
-                    if (data.errors) {
-                        for (const key in data.errors) {
-                            const errorDiv = document.getElementById(`${key}-error`);
-                            if (errorDiv) {
-                                errorDiv.innerText = data.errors[key];
-                                errorDiv.style.display = 'block';
-                            }
-                        }
-                    } else if (data.message) {
-                        const genError = document.getElementById("general-error");
-                        genError.innerText = data.message;
-                        genError.style.display = 'block';
-                    }
-                }
-            } catch (error) {
-                console.error("Error:", error);
-                const genError = document.getElementById("general-error");
-                genError.innerText = "حدث خطأ في الاتصال بالسيرفر، تأكد من تشغيل السيرفر.";
-                genError.style.display = 'block';
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 80) {
+                navbar.classList.add('max-w-4xl', 'py-3', 'bg-[#254159]/95');
+                navbar.classList.remove('max-w-6xl', 'py-4', 'bg-[#254159]/80');
+            } else {
+                navbar.classList.remove('max-w-4xl', 'py-3', 'bg-[#254159]/95');
+                navbar.classList.add('max-w-6xl', 'py-4', 'bg-[#254159]/80');
             }
         });
+
     </script>
 </body>
+
 </html>
